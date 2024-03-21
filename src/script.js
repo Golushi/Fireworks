@@ -16,7 +16,7 @@ const loadAudio = async (url) => {
 
 const playExploSound = async () => {
   try {
-    const audioData = await loadAudio("./assets/son/fireworks_explo.mp3");
+    const audioData = await loadAudio("assets/son/fireworks_explo.mp3");
     const buffer = await audioContext.decodeAudioData(audioData);
     const source = audioContext.createBufferSource();
     source.buffer = buffer;
