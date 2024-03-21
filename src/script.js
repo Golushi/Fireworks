@@ -5,6 +5,8 @@ import gsap from "gsap";
 import fireworkVertexShader from "./shaders/firework/vertex.glsl";
 import fireworkFragmentShader from "./shaders/firework/fragment.glsl";
 
+const exploSound = document.getElementById("explo");
+
 /**
  * Base
  */
@@ -97,6 +99,8 @@ const createFirework = (count, position, size, texture, radius, color) => {
   // Geometry
   const positionArray = new Float32Array(count * 3);
   const sizesArray = new Float32Array(count);
+  const timeMultipliersArray = new Float32Array(count);
+
   for (let i = 0; i < count; i++) {
     const i3 = i * 3;
 
@@ -113,6 +117,8 @@ const createFirework = (count, position, size, texture, radius, color) => {
     positionArray[i3 + 2] = position.z;
 
     sizesArray[i] = Math.random();
+
+    timeMultipliersArray[i] = 1 + Math.random();
   }
 
   const geometry = new THREE.BufferGeometry();
@@ -123,6 +129,10 @@ const createFirework = (count, position, size, texture, radius, color) => {
   geometry.setAttribute(
     "aSize",
     new THREE.Float32BufferAttribute(sizesArray, 1)
+  );
+  geometry.setAttribute(
+    "aTimeMultiplier",
+    new THREE.Float32BufferAttribute(timeMultipliersArray, 1)
   );
 
   // Material
@@ -157,21 +167,41 @@ const createFirework = (count, position, size, texture, radius, color) => {
   // Animate
   gsap.to(material.uniforms.uProgress, {
     value: 1,
-    duration: 3,
+    duration: 2.5,
     ease: "linear",
     onComplete: destroy,
   });
 };
 
-window.addEventListener("click", () => {
-  createFirework(
-    300, // Count
-    new THREE.Vector3(), // Position
-    0.5, // Size
-    textures[7], // Texture
-    1, // Radius
-    new THREE.Color("#8affff") // Color
+const playExploSound = () => {
+  const newExploSound = new Audio(exploSound.src);
+  newExploSound.playbackRate = 0.9;
+  newExploSound.play();
+};
+
+const createRandomFirework = () => {
+  const count = Math.round(400 + Math.random() * 10000);
+  const position = new THREE.Vector3(
+    (Math.random() - 0.5) * 2,
+    Math.random(),
+    (Math.random() - 0.5) * 2
   );
+  const size = 0.1 + Math.random() * 0.1;
+  const texture = textures[Math.floor(Math.random() * textures.length)];
+  const radius = 0.5 + Math.random();
+  const color = new THREE.Color();
+  color.setHSL(Math.random(), 1, 0.7);
+
+  createFirework(count, position, size, texture, radius, color);
+};
+
+createRandomFirework();
+playExploSound();
+
+window.addEventListener("click", function () {
+  // Appeler la fonction pour créer un feu d'artifice et jouer le son d'explosion
+  createRandomFirework();
+  playExploSound();
 });
 
 /**
