@@ -196,14 +196,11 @@ const createRandomFirework = () => {
 };
 
 createRandomFirework();
-//playExploSound();
+playExploSound();
 
 window.addEventListener("click", function () {
   // Appeler la fonction pour créer un feu d'artifice et jouer le son d'explosion
   createRandomFirework();
-  //playExploSound();
-});
-window.addEventListener("click", () => {
   playExploSound();
 });
 
