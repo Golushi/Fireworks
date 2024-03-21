@@ -6,13 +6,26 @@ import { Sky } from "three/addons/objects/Sky.js";
 import fireworkVertexShader from "./shaders/firework/vertex.glsl";
 import fireworkFragmentShader from "./shaders/firework/fragment.glsl";
 
-//const exploSound = document.getElementById("explo");
-const exploSound = new Audio("./assets/son/fireworks_explo.mp3");
+const audioContext = new AudioContext();
 
-const playExploSound = () => {
-  const newExploSound = new Audio(exploSound.src);
-  newExploSound.playbackRate = 0.9;
-  newExploSound.play();
+const loadAudio = async (url) => {
+  const response = await fetch(url);
+  const arrayBuffer = await response.arrayBuffer();
+  return arrayBuffer;
+};
+
+const playExploSound = async () => {
+  try {
+    const audioData = await loadAudio("./assets/son/fireworks_explo.mp3");
+    const buffer = await audioContext.decodeAudioData(audioData);
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+    source.playbackRate.value = 0.9;
+    source.start();
+  } catch (error) {
+    console.error("Failed to play audio:", error);
+  }
 };
 
 /**
@@ -198,7 +211,7 @@ const createRandomFirework = () => {
 };
 
 createRandomFirework();
-//playExploSound();
+playExploSound();
 
 window.addEventListener("click", function () {
   // Appeler la fonction pour créer un feu d'artifice et jouer le son d'explosion
