@@ -7,7 +7,7 @@ import fireworkVertexShader from "./shaders/firework/vertex.glsl";
 import fireworkFragmentShader from "./shaders/firework/fragment.glsl";
 
 const playExploSound = () => {
-  const audioElement = new Audio("./assets/fireworks_explo.wav");
+  const audioElement = new Audio("./assets/fireworks_explo.mp3");
   audioElement.play().catch((error) => {
     console.error("Failed to play audio:", error);
   });
