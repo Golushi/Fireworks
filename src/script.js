@@ -6,7 +6,8 @@ import { Sky } from "three/addons/objects/Sky.js";
 import fireworkVertexShader from "./shaders/firework/vertex.glsl";
 import fireworkFragmentShader from "./shaders/firework/fragment.glsl";
 
-const exploSound = document.getElementById("explo");
+//const exploSound = document.getElementById("explo");
+const exploSound = new Audio("./assets/son/fireworks_explo.wav");
 
 /**
  * Base
