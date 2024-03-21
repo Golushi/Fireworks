@@ -7,11 +7,27 @@ import fireworkVertexShader from "./shaders/firework/vertex.glsl";
 import fireworkFragmentShader from "./shaders/firework/fragment.glsl";
 
 const playExploSound = () => {
-  const audioElement = new Audio("./assets/fireworks_explo.mp3");
+  const audioElement = new Audio("/fireworks_explo.mp3");
   audioElement.play().catch((error) => {
     console.error("Failed to play audio:", error);
   });
 };
+
+const startAudioContext = () => {
+  // Créer un contexte audio
+  const audioContext = new AudioContext();
+
+  // Utiliser le contexte audio ici...
+};
+
+// Ajouter un écouteur d'événements pour démarrer le contexte audio après un clic
+document.addEventListener(
+  "click",
+  () => {
+    startAudioContext();
+  },
+  { once: true }
+); // { once: true } pour que l'écouteur d'événements ne se déclenche qu'une seule fois
 
 /**
  * Base
