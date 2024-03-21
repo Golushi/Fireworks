@@ -6,8 +6,7 @@ import { Sky } from "three/addons/objects/Sky.js";
 import fireworkVertexShader from "./shaders/firework/vertex.glsl";
 import fireworkFragmentShader from "./shaders/firework/fragment.glsl";
 
-const myAudio = document.getElementById("myAudio");
-myAudio.play();
+const exploSound = document.getElementById("explo");
 
 /**
  * Base
@@ -175,6 +174,12 @@ const createFirework = (count, position, size, texture, radius, color) => {
   });
 };
 
+const playExploSound = () => {
+  const newExploSound = new Audio(exploSound.src);
+  newExploSound.playbackRate = 0.9;
+  newExploSound.play();
+};
+
 const createRandomFirework = () => {
   const count = Math.round(400 + Math.random() * 10000);
   const position = new THREE.Vector3(
@@ -192,12 +197,12 @@ const createRandomFirework = () => {
 };
 
 createRandomFirework();
-//playExploSound();
+playExploSound();
 
 window.addEventListener("click", function () {
   // Appeler la fonction pour créer un feu d'artifice et jouer le son d'explosion
   createRandomFirework();
-  //playExploSound();
+  playExploSound();
 });
 
 /**
