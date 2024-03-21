@@ -223,7 +223,7 @@ const skyParameters = {
   rayleigh: 3,
   mieCoefficient: 0.005,
   mieDirectionalG: 0.95,
-  elevation: -2.2,
+  elevation: -2.23,
   azimuth: 180,
   exposure: renderer.toneMappingExposure,
 };
