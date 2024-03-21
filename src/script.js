@@ -92,15 +92,24 @@ const textures = [
   textureLoader.load("./particles/8.png"),
 ];
 
-const createFirework = (count, position, size, texture) => {
+const createFirework = (count, position, size, texture, radius) => {
   // Geometry
   const positionArray = new Float32Array(count * 3);
   const sizesArray = new Float32Array(count);
   for (let i = 0; i < count; i++) {
     const i3 = i * 3;
-    positionArray[i3] = Math.random() - 0.5;
-    positionArray[i3 + 1] = Math.random() - 0.5;
-    positionArray[i3 + 2] = Math.random() - 0.5;
+
+    const spherical = new THREE.Spherical(
+      radius * (0.75 + Math.random() * 0.25),
+      Math.random() * Math.PI,
+      Math.random() * Math.PI * 2
+    );
+    const position = new THREE.Vector3();
+    position.setFromSpherical(spherical);
+
+    positionArray[i3] = position.x;
+    positionArray[i3 + 1] = position.y;
+    positionArray[i3 + 2] = position.z;
 
     sizesArray[i] = Math.random();
   }
@@ -140,7 +149,8 @@ createFirework(
   100, // Count
   new THREE.Vector3(), // Position
   0.5, // Size
-  textures[7] // Texture
+  textures[7], // Texture
+  1
 );
 
 /**
