@@ -6,8 +6,14 @@ import { Sky } from "three/addons/objects/Sky.js";
 import fireworkVertexShader from "./shaders/firework/vertex.glsl";
 import fireworkFragmentShader from "./shaders/firework/fragment.glsl";
 
-//const exploSound = document.getElementById("explo");
-const exploSound = new Audio("./assets/son/fireworks_explo.wav");
+const exploSound = document.getElementById("explo");
+//const exploSound = new Audio("./assets/son/fireworks_explo.wav");
+
+const playExploSound = () => {
+  const newExploSound = new Audio(exploSound.src);
+  newExploSound.playbackRate = 0.9;
+  newExploSound.play();
+};
 
 /**
  * Base
@@ -173,12 +179,6 @@ const createFirework = (count, position, size, texture, radius, color) => {
     ease: "linear",
     onComplete: destroy,
   });
-};
-
-const playExploSound = () => {
-  const newExploSound = new Audio(exploSound.src);
-  newExploSound.playbackRate = 0.9;
-  newExploSound.play();
 };
 
 const createRandomFirework = () => {
